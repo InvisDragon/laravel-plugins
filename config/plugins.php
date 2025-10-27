@@ -1,6 +1,10 @@
 <?php
 
-// config for Invisible Dragon/InvisibleDragon\LaravelPlugins
+// config for Laravel Plugins
 return [
+
+    'plugin_dirs' => [
+        dirname(__FILE__) . '/../plugins/',
+    ],
 
 ];

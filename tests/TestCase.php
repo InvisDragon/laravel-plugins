@@ -28,6 +28,10 @@ abstract class TestCase extends Orchestra
     {
         config()->set('database.default', 'testing');
 
+        config()->set('plugins.plugin_dirs', [
+            dirname(__FILE__) . '/test_plugins/',
+        ]);
+
         /*
          foreach (\Illuminate\Support\Facades\File::allFiles(__DIR__ . '/../database/migrations') as $migration) {
             (include $migration->getRealPath())->up();

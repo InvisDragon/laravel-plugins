@@ -11,6 +11,6 @@ class LaravelPlugins extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return InvisibleDragon\LaravelPlugins\LaravelPlugins::class;
+        return LaravelPlugins::class;
     }
 }
