@@ -2,7 +2,6 @@
 
 namespace InvisibleDragon\LaravelPlugins\Tests;
 
-use InvisibleDragon\LaravelPlugins\LaravelPlugins;
 use InvisibleDragon\LaravelPlugins\LPClassLoader;
 
 class ClassLoaderTest extends TestCase {

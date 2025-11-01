@@ -2,6 +2,8 @@
 
 namespace InvisibleDragon\LaravelPlugins;
 
+use Illuminate\Database\Migrations\DatabaseMigrationRepository;
+use Illuminate\Database\Migrations\Migrator;
 use Illuminate\Support\Facades\Route;
 use InvisibleDragon\LaravelPlugins\Middleware\PluginActiveMiddleware;
 
@@ -55,6 +57,14 @@ class LaravelPlugins {
         }
     }
 
+    protected static function setActivePlugins($plugins) {
+        if(function_exists('tenant')) { // multi-tenant support
+            $tenant = tenant();
+            $tenant->active_plugins = $plugins;
+            $tenant->save();
+        }
+    }
+
     /**
      * Add all routes for plugins available to the platform
      */
@@ -70,6 +80,36 @@ class LaravelPlugins {
             }
         }
 
+    }
+
+    public static function activatePlugin($plugin) {
+        $active_plugins = static::getActivePlugins();
+        $active_plugins[] = $plugin;
+
+        // Run migrations
+        static::migrateForPlugin( $plugin );
+
+        static::setActivePlugins($active_plugins);
+
+    }
+
+    protected static function migrateForPlugin($plugin) {
+        $dirs = static::getAllPluginDirectories();
+
+        // Get migrator default parameters
+        $resolver = app('db');
+        $files = app('files');
+        $dispatcher = app('events');
+        $repository = new LPMigrationRepository( $resolver, $plugin );
+        if(!$repository->repositoryExists()) {
+            $repository->createRepository();
+        }
+
+        /** @var Migrator */
+        $migrator = new Migrator( $repository, $resolver, $files, $dispatcher );
+        $migrator->run([
+            $dirs[ $plugin ] . DIRECTORY_SEPARATOR . 'migrations'
+        ]);
     }
 
 }

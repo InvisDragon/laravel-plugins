@@ -32,10 +32,8 @@ abstract class TestCase extends Orchestra
             dirname(__FILE__) . '/test_plugins/',
         ]);
 
-        /*
-         foreach (\Illuminate\Support\Facades\File::allFiles(__DIR__ . '/../database/migrations') as $migration) {
+        foreach (\Illuminate\Support\Facades\File::allFiles(__DIR__ . '//migrations') as $migration) {
             (include $migration->getRealPath())->up();
-         }
-         */
+        }
     }
 }
