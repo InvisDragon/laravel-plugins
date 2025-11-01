@@ -22,4 +22,16 @@ class PluginDiscoveryTest extends TestCase {
         ], LaravelPlugins::getAllPluginInformation() );
     }
 
+    public function test_force_enable_plugins() {
+
+        $this->assertEquals([], LaravelPlugins::getActivePlugins());
+
+        config()->set('plugins.active', [ 'one', ]);
+
+        $this->assertEquals([ 'one', ], LaravelPlugins::getActivePlugins());
+
+        config()->set('plugins.active', []);
+
+    }
+
 }

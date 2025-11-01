@@ -20,4 +20,10 @@ class LaravelPluginsServiceProvider extends PackageServiceProvider
             ->hasViews()
             ->hasMigration('create_laravel_plugins_table');
     }
+
+    public function packageRegistered()
+    {
+        LPClassLoader::setup();
+    }
+
 }
