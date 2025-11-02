@@ -19,10 +19,11 @@ class LaravelPlugins {
     public static function getAllPluginDirectories() : array {
         $information = [];
         foreach(static::getPluginDirectories() as $pluginDirectory) {
+            if(!is_dir($pluginDirectory)) continue;
             $cdir = scandir($pluginDirectory);
             foreach ($cdir as $value) {
-                if (!in_array($value,array(".",".."))) {
-                    $dir = $pluginDirectory . $value;
+                if (!in_array($value, array(".",".."))) {
+                    $dir = $pluginDirectory . DIRECTORY_SEPARATOR . $value;
                     if (is_dir($dir)) {
                         $information[ $value ] = $dir;
                     }
