@@ -113,4 +113,19 @@ class LaravelPlugins {
         ]);
     }
 
+    public static function bootPlugins() {
+        $active_plugins = static::getActivePlugins();
+        foreach($active_plugins as $active_plugin) {
+            static::bootPlugin($active_plugin);
+        }
+    }
+
+    public static function bootPlugin($active_plugin) {
+        $plugins = static::getAllPluginDirectories();
+        $file = @$plugins[ $active_plugin ] . DIRECTORY_SEPARATOR . 'plugin.php';
+        if(file_exists($file)) {
+            include( $file );
+        }
+    }
+
 }

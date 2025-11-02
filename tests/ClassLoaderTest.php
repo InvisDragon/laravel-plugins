@@ -10,7 +10,7 @@ class ClassLoaderTest extends TestCase {
 
         // See if it can find our plugin's DemoController file exactly
         $this->assertEquals(
-            dirname(__FILE__) . '/test_plugins/one/Controllers/DemoController.php',
+            dirname(__FILE__) . '/test_plugins//one/Controllers/DemoController.php',
             LPClassLoader::findClass( 'Plugins\one\Controllers\DemoController' )
         );
 

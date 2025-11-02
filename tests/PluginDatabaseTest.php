@@ -29,6 +29,15 @@ class PluginDatabaseTest extends TestCase {
 
     }
 
+    public function test_boot_plugin() {
+
+        config()->set('plugins.active', [ 'one', ]);
+        LaravelPlugins::bootPlugins();
+        $this->assertEquals( true, constant('ONE_PLUGIN_LOADED') );
+        config()->set('plugins.active', [ ]);
+
+    }
+
     public function test_activate_plugin() {
 
         LaravelPlugins::activatePlugin( 'one' );
