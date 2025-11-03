@@ -94,7 +94,7 @@ class LaravelPlugins {
 
     }
 
-    protected static function migrateForPlugin($plugin) {
+    public static function migrateForPlugin($plugin) {
         $dirs = static::getAllPluginDirectories();
 
         // Get migrator default parameters
