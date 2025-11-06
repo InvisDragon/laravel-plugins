@@ -43,6 +43,7 @@ class LaravelPlugins {
                 file_get_contents( $dir . DIRECTORY_SEPARATOR . 'plugin.json' ),
                 true
             );
+            $information[ $key ]['dir'] = $dir;
         }
         return $information;
     }
