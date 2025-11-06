@@ -5,4 +5,5 @@ window.registerPluginComponent = function( hookName, component ) {
         window.pluginComponents[hookName] = [];
     }
     window.pluginComponents[hookName].push( component );
+    document.dispatchEvent( new CustomEvent( 'newPluginComponent' ) );
 }
