@@ -4,7 +4,7 @@
 return [
 
     'plugin_dirs' => [
-        dirname(__FILE__) . '/../plugins/',
+        dirname(__FILE__).'/../plugins/',
     ],
 
 ];

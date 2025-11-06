@@ -4,8 +4,8 @@ namespace InvisibleDragon\LaravelPlugins\Tests;
 
 use InvisibleDragon\LaravelPlugins\LaravelPlugins;
 
-class PluginRoutingTest extends TestCase {
-
+class PluginRoutingTest extends TestCase
+{
     /**
      * Define routes setup.
      *
@@ -15,11 +15,11 @@ class PluginRoutingTest extends TestCase {
     public function defineRoutes($router)
     {
 
-        $router->get('/test', function() {
+        $router->get('/test', function () {
             return 'hello';
         });
 
-        $router->prefix('api')->middleware('api')->group(function(){
+        $router->prefix('api')->middleware('api')->group(function () {
             LaravelPlugins::addPluginRoutes('api');
         });
 
@@ -28,7 +28,8 @@ class PluginRoutingTest extends TestCase {
     /*
      * Test if our plugin route does anything when our plugin is not active yet
      */
-    public function test_inactive_plugin_route() {
+    public function test_inactive_plugin_route()
+    {
         $resp = $this->get('/api/plugin/one');
         $resp->assertStatus(423);
     }
@@ -36,10 +37,11 @@ class PluginRoutingTest extends TestCase {
     /*
      * Test if our route works as expected when our plugin is activated
      */
-    public function test_active_plugin_route() {
+    public function test_active_plugin_route()
+    {
 
         // Force activate plugin
-        config()->set('plugins.active', [ 'one', ]);
+        config()->set('plugins.active', ['one']);
 
         $resp = $this->get('/api/plugin/one');
         $resp->assertStatus(200);
@@ -52,10 +54,11 @@ class PluginRoutingTest extends TestCase {
     /*
      * Test if our route works as expected when our plugin is activated
      */
-    public function test_active_plugin_controller() {
+    public function test_active_plugin_controller()
+    {
 
         // Force activate plugin
-        config()->set('plugins.active', [ 'one', ]);
+        config()->set('plugins.active', ['one']);
 
         // This especially tests class loading
         $resp = $this->get('/api/plugin/controller');
@@ -69,10 +72,10 @@ class PluginRoutingTest extends TestCase {
     /*
      * Test if our test cases are working as expected
      */
-    public function test_basic_routing() {
+    public function test_basic_routing()
+    {
         $resp = $this->get('/test');
         $resp->assertStatus(200);
         $resp->assertContent('hello');
     }
-
 }
