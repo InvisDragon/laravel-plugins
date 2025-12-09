@@ -22,8 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('test', function(Blueprint $table) {
-            $table->removeColumn( 'extra_data' );
+        Schema::table('test', function (Blueprint $table) {
+            $table->removeColumn('extra_data');
         });
     }
 };

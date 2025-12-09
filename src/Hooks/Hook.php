@@ -21,11 +21,15 @@ use Throwable;
 class Hook
 {
     public const SEQUENCE_CORE = 0;
+
     public const SEQUENCE_NORMAL = 256;
+
     public const SEQUENCE_LATE = 512;
+
     public const SEQUENCE_LAST = 768;
 
     public const CONTINUE = false;
+
     public const ABORT = true;
 
     /** @var array An associative array of [unsupported_hook_name => anything] */
@@ -36,10 +40,9 @@ class Hook
     /**
      * Get the current set of hook registrations.
      *
-     * @param string $hookName Name of hook to optionally return
-     *
+     * @param  string  $hookName  Name of hook to optionally return
      * @return mixed Array of all hooks or just those attached to $hookName, or
-     *   null if nothing has been attached to $hookName
+     *               null if nothing has been attached to $hookName
      */
     public static function &getHooks(?string $hookName = null): ?array
     {
@@ -53,6 +56,7 @@ class Hook
         }
 
         $returner = null;
+
         return $returner;
     }
 
@@ -70,23 +74,23 @@ class Hook
      */
     public static function clear(string $hookName): void
     {
-        $hooks = & static::getHooks();
+        $hooks = &static::getHooks();
         unset($hooks[$hookName]);
     }
 
     /**
      * Register a hook against the given hook name.
      *
-     * @param $hookName Name of hook to register against
-     * @param $callback Callback pseudo-type
-     * @param $hookSequence Optional hook sequence specifier SEQUENCE_...
+     * @param  $hookName  Name of hook to register against
+     * @param  $callback  Callback pseudo-type
+     * @param  $hookSequence  Optional hook sequence specifier SEQUENCE_...
      */
     public static function add(string $hookName, callable $callback, int $hookSequence = self::SEQUENCE_NORMAL): void
     {
         if (isset(static::$unsupportedHooks[$hookName])) {
             throw new \Exception("Hook {$hookName} is not supported (possibly removed) and callbacks should not be added to it!");
         }
-        $hooks = & static::getHooks();
+        $hooks = &static::getHooks();
         $hooks[$hookName]['hooks'][$hookSequence][] = $callback;
         $hooks[$hookName]['dirty'] = true; // Need to re-sort
     }
@@ -122,9 +126,9 @@ class Hook
         // Hook::call function.
         if (static::rememberCalledHooks(true)) {
             // Remember the called hooks for testing.
-            $calledHooks = & static::getCalledHooks();
+            $calledHooks = &static::getCalledHooks();
             $calledHooks[] = [
-                $hookName, $args
+                $hookName, $args,
             ];
         }
 
@@ -146,8 +150,8 @@ class Hook
      */
     public static function run(string $hookName, array $args = []): bool
     {
-        $hooks = & static::getHooks();
-        if (!isset($hooks[$hookName])) {
+        $hooks = &static::getHooks();
+        if (! isset($hooks[$hookName])) {
             return static::CONTINUE;
         }
 
@@ -173,7 +177,6 @@ class Hook
         return static::CONTINUE;
     }
 
-
     //
     // Methods required for testing only.
     //
@@ -181,19 +184,19 @@ class Hook
      * Set/query the flag that triggers storing of
      * called hooks.
      *
-     * @param bool $askOnly When set to true, the flag will not
-     *   be changed but only returned.
-     * @param bool $updateTo When $askOnly is set to 'true' then
-     *   this parameter defines the value of the flag.
-     *
+     * @param  bool  $askOnly  When set to true, the flag will not
+     *                         be changed but only returned.
+     * @param  bool  $updateTo  When $askOnly is set to 'true' then
+     *                          this parameter defines the value of the flag.
      * @return bool The current value of the flag.
      */
     public static function rememberCalledHooks(bool $askOnly = false, bool $updateTo = true): bool
     {
         static $rememberCalledHooks = false;
-        if (!$askOnly) {
+        if (! $askOnly) {
             $rememberCalledHooks = $updateTo;
         }
+
         return $rememberCalledHooks;
     }
 
@@ -201,16 +204,16 @@ class Hook
      * Switch off the function to store hooks and delete all stored hooks.
      * Always call this after using otherwise we get a severe memory.
      *
-     * @param bool $leaveAlive Set this to true if you only want to
-     *   delete hooks stored so far but if you want to record future
-     *   hook calls, too.
+     * @param  bool  $leaveAlive  Set this to true if you only want to
+     *                            delete hooks stored so far but if you want to record future
+     *                            hook calls, too.
      */
     public static function resetCalledHooks(bool $leaveAlive = false): void
     {
-        if (!$leaveAlive) {
+        if (! $leaveAlive) {
             static::rememberCalledHooks(false, false);
         }
-        $calledHooks = & static::getCalledHooks();
+        $calledHooks = &static::getCalledHooks();
         $calledHooks = [];
     }
 
@@ -220,6 +223,7 @@ class Hook
     public static function &getCalledHooks(): array
     {
         static $calledHooks = [];
+
         return $calledHooks;
     }
 }

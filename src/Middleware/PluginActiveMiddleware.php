@@ -23,9 +23,10 @@ class PluginActiveMiddleware
     public function handle(Request $request, Closure $next, string $plugin): Response
     {
         $active_plugins = LaravelPlugins::getActivePlugins();
-        if(!in_array($plugin, $active_plugins)) {
+        if (! in_array($plugin, $active_plugins)) {
             throw new LockedHttpException('Associated plugin not active on this instance');
         }
+
         return $next($request);
     }
 }

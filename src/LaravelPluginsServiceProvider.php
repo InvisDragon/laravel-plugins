@@ -10,7 +10,6 @@ use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class LaravelPluginsServiceProvider extends PackageServiceProvider
 {
-
     public function configurePackage(Package $package): void
     {
         /*
@@ -30,7 +29,7 @@ class LaravelPluginsServiceProvider extends PackageServiceProvider
         LPClassLoader::setup();
 
         // Tenanted based application listeners
-        if(function_exists('tenant')) {
+        if (function_exists('tenant')) {
             Event::listen(
                 'Stancl\Tenancy\Events\TenancyInitialized',
                 BootListener::class
@@ -43,5 +42,4 @@ class LaravelPluginsServiceProvider extends PackageServiceProvider
             LaravelPlugins::bootPlugins();
         }
     }
-
 }
