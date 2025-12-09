@@ -123,6 +123,9 @@ class LaravelPlugins {
 
     public static function bootPlugin($active_plugin) {
         $plugins = static::getAllPluginDirectories();
+        // Add blade hint path
+        app( 'view' )->addNamespace( 'plugin-' . $active_plugin,  @$plugins[ $active_plugin ] . DIRECTORY_SEPARATOR . 'views');
+        // Include functions file for plugin, if available
         $file = @$plugins[ $active_plugin ] . DIRECTORY_SEPARATOR . 'plugin.php';
         if(file_exists($file)) {
             include( $file );
