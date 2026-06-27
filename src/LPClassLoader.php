@@ -42,11 +42,15 @@ class LPClassLoader
         if (str_starts_with($cls, 'Plugins\\')) {
 
             $pluginInfos = LaravelPlugins::getAllPluginDirectories();
-            $namespaceBits = explode("\\", $cls);
-            if(count($namespaceBits) < 2) return false;
-            $plugin = $namespaceBits[ 1 ];
-            if(!array_key_exists($plugin, $pluginInfos)) return false;
-            $pluginDir = $pluginInfos[ $plugin ];
+            $namespaceBits = explode('\\', $cls);
+            if (count($namespaceBits) < 2) {
+                return false;
+            }
+            $plugin = $namespaceBits[1];
+            if (! array_key_exists($plugin, $pluginInfos)) {
+                return false;
+            }
+            $pluginDir = $pluginInfos[$plugin];
 
             $class = implode(DIRECTORY_SEPARATOR, array_splice($namespaceBits, 2));
             $shouldBe = $pluginDir.DIRECTORY_SEPARATOR.$class.'.php';

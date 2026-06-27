@@ -75,17 +75,18 @@ class PluginController
         return response($output)->header('Content-Type', 'text/javascript');
     }
 
-    public function appStyles() {
+    public function appStyles()
+    {
         $activePlugins = LaravelPlugins::getActivePlugins();
         $pluginInfo = LaravelPlugins::getAllPluginInformation();
         $output = '';
-        foreach($activePlugins as $activePlugin) {
-            $file = $pluginInfo[ $activePlugin ]['dir'] . DIRECTORY_SEPARATOR . 'frontend.css';
-            if(file_exists( $file )) {
-                $output .= file_get_contents( $file );
+        foreach ($activePlugins as $activePlugin) {
+            $file = $pluginInfo[$activePlugin]['dir'].DIRECTORY_SEPARATOR.'frontend.css';
+            if (file_exists($file)) {
+                $output .= file_get_contents($file);
             }
         }
+
         return response($output)->header('Content-Type', 'text/css');
     }
-
 }

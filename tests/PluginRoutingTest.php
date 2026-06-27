@@ -2,6 +2,7 @@
 
 namespace InvisibleDragon\LaravelPlugins\Tests;
 
+use Illuminate\Routing\Router;
 use InvisibleDragon\LaravelPlugins\LaravelPlugins;
 
 class PluginRoutingTest extends TestCase
@@ -9,7 +10,7 @@ class PluginRoutingTest extends TestCase
     /**
      * Define routes setup.
      *
-     * @param  \Illuminate\Routing\Router  $router
+     * @param  Router  $router
      * @return void
      */
     public function defineRoutes($router)

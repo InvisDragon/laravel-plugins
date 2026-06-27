@@ -2,8 +2,11 @@
 
 namespace InvisibleDragon\LaravelPlugins;
 
+use Illuminate\Database\Connection;
+use Illuminate\Database\ConnectionResolverInterface;
 use Illuminate\Database\ConnectionResolverInterface as Resolver;
 use Illuminate\Database\Migrations\DatabaseMigrationRepository;
+use Illuminate\Database\Query\Builder;
 
 /**
  * This implements the database repository for plugins
@@ -16,7 +19,7 @@ class LPMigrationRepository extends DatabaseMigrationRepository
     /**
      * The database connection resolver instance.
      *
-     * @var \Illuminate\Database\ConnectionResolverInterface
+     * @var ConnectionResolverInterface
      */
     protected $resolver;
 
@@ -225,7 +228,7 @@ class LPMigrationRepository extends DatabaseMigrationRepository
     /**
      * Get a query builder for the migration table.
      *
-     * @return \Illuminate\Database\Query\Builder
+     * @return Builder
      */
     protected function table()
     {
@@ -235,7 +238,7 @@ class LPMigrationRepository extends DatabaseMigrationRepository
     /**
      * Get the connection resolver instance.
      *
-     * @return \Illuminate\Database\ConnectionResolverInterface
+     * @return ConnectionResolverInterface
      */
     public function getConnectionResolver()
     {
@@ -245,7 +248,7 @@ class LPMigrationRepository extends DatabaseMigrationRepository
     /**
      * Resolve the database connection instance.
      *
-     * @return \Illuminate\Database\Connection
+     * @return Connection
      */
     public function getConnection()
     {
