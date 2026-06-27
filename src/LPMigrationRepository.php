@@ -11,8 +11,8 @@ use Illuminate\Database\Migrations\DatabaseMigrationRepository;
  * This is based on the Laravel class, but worked to add in plugin column and
  * separate concerns by plugins
  */
-class LPMigrationRepository extends DatabaseMigrationRepository {
-
+class LPMigrationRepository extends DatabaseMigrationRepository
+{
     /**
      * The database connection resolver instance.
      *
@@ -36,6 +36,7 @@ class LPMigrationRepository extends DatabaseMigrationRepository {
 
     /**
      * The name of the plugin being migrated
+     *
      * @var string
      */
     protected $plugin;
@@ -43,7 +44,6 @@ class LPMigrationRepository extends DatabaseMigrationRepository {
     /**
      * Create a new database migration repository instance.
      *
-     * @param  \Illuminate\Database\ConnectionResolverInterface  $resolver
      * @param  string  $plugin
      * @param  string  $table
      */
@@ -262,5 +262,4 @@ class LPMigrationRepository extends DatabaseMigrationRepository {
     {
         $this->connection = $name;
     }
-
 }

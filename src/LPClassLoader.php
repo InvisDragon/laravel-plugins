@@ -7,21 +7,21 @@ namespace InvisibleDragon\LaravelPlugins;
  */
 class LPClassLoader
 {
-
     /** @var \Closure(string):void */
     private static $includeFile;
 
-    public static function setup() {
+    public static function setup()
+    {
 
         static::initializeIncludeClosure();
-        spl_autoload_register( [ static::class, 'loadClass' ] );
+        spl_autoload_register([static::class, 'loadClass']);
 
     }
 
     /**
      * Loads the given class or interface.
      *
-     * @param  string    $class The name of the class
+     * @param  string  $class  The name of the class
      * @return true|null True if loaded, null otherwise
      */
     public static function loadClass($class)
@@ -36,9 +36,10 @@ class LPClassLoader
         return null;
     }
 
-    public static function findClass($cls) {
+    public static function findClass($cls)
+    {
 
-        if(str_starts_with( $cls, 'Plugins\\' )) {
+        if (str_starts_with($cls, 'Plugins\\')) {
 
             $pluginInfos = LaravelPlugins::getAllPluginDirectories();
             $namespaceBits = explode("\\", $cls);
@@ -47,14 +48,15 @@ class LPClassLoader
             if(!array_key_exists($plugin, $pluginInfos)) return false;
             $pluginDir = $pluginInfos[ $plugin ];
 
-            $class = implode( DIRECTORY_SEPARATOR, array_splice( $namespaceBits, 2 )  );
-            $shouldBe = $pluginDir . DIRECTORY_SEPARATOR . $class . '.php';
+            $class = implode(DIRECTORY_SEPARATOR, array_splice($namespaceBits, 2));
+            $shouldBe = $pluginDir.DIRECTORY_SEPARATOR.$class.'.php';
 
-            if(is_file($shouldBe)) {
+            if (is_file($shouldBe)) {
                 return $shouldBe;
             }
 
         }
+
         return false;
 
     }
@@ -73,12 +75,11 @@ class LPClassLoader
          *
          * Prevents access to $this/self from included files.
          *
-         * @param  string $file
+         * @param  string  $file
          * @return void
          */
-        self::$includeFile = \Closure::bind(static function($file) {
+        self::$includeFile = \Closure::bind(static function ($file) {
             include $file;
         }, null, null);
     }
-
 }
