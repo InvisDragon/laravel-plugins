@@ -13,13 +13,13 @@ class PluginListCommand extends Command
 
     public function handle(): int
     {
-        foreach( LaravelPlugins::getAllPluginInformation() as $plugin ) {
-            $this->info( $plugin['name'] );
-            if(isset($plugin['author'])) {
-                $this->info( '> Author: ' . $plugin['author'], 'v' );
+        foreach (LaravelPlugins::getAllPluginInformation() as $plugin) {
+            $this->info($plugin['name']);
+            if (isset($plugin['author'])) {
+                $this->info('> Author: '.$plugin['author'], 'v');
             }
-            if(isset($plugin['description'])) {
-                $this->info( '> Description: ' . $plugin['description'], 'v' );
+            if (isset($plugin['description'])) {
+                $this->info('> Description: '.$plugin['description'], 'v');
             }
         }
 

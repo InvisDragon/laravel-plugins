@@ -23,22 +23,24 @@ class PluginLinkAssetsCommand extends Command
 
         $target = config('plugins.public_dir', public_path('plugins'));
 
-        if(!file_exists($target)) {
-            $this->laravel->make('files')->makeDirectory( $target, 0755, true );
+        if (! file_exists($target)) {
+            $this->laravel->make('files')->makeDirectory($target, 0755, true);
         }
 
-        foreach( LaravelPlugins::getAllPluginInformation() as $pluginKey => $plugin ) {
+        foreach (LaravelPlugins::getAllPluginInformation() as $pluginKey => $plugin) {
 
-            $target_dir = $target . DIRECTORY_SEPARATOR . $pluginKey;
+            $target_dir = $target.DIRECTORY_SEPARATOR.$pluginKey;
 
             if (file_exists($target_dir) && ! $this->isRemovableSymlink($target_dir, $this->option('force'))) {
                 $this->error("$pluginKey: Link already exists.");
+
                 continue;
             }
 
-            $source_dir = $plugin['dir'] . DIRECTORY_SEPARATOR . 'public';
-            if( !file_exists($source_dir) ) {
-                $this->warn("$pluginKey: No public directory to link", 'v' );
+            $source_dir = $plugin['dir'].DIRECTORY_SEPARATOR.'public';
+            if (! file_exists($source_dir)) {
+                $this->warn("$pluginKey: No public directory to link", 'v');
+
                 continue;
             }
 
@@ -60,14 +62,9 @@ class PluginLinkAssetsCommand extends Command
 
     /**
      * Determine if the provided path is a symlink that can be removed.
-     *
-     * @param  string  $link
-     * @param  bool  $force
-     * @return bool
      */
     protected function isRemovableSymlink(string $link, bool $force): bool
     {
         return is_link($link) && $force;
     }
-
 }

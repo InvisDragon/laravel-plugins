@@ -20,14 +20,14 @@ class PluginDiscoveryTest extends TestCase
                 'name' => 'One',
                 'author' => 'Joe Simpson',
                 'description' => 'This is a plugin',
-                'dir' => __DIR__ . '/test_plugins/one',
+                'dir' => __DIR__.'/test_plugins/one',
             ],
         ], LaravelPlugins::getAllPluginInformation());
     }
 
     public function test_discover_plugins_cli()
     {
-        $this->artisan('plugins:list', [ '--verbose' => true, ])
+        $this->artisan('plugins:list', ['--verbose' => true])
             ->expectsOutputToContain('One')
             ->expectsOutputToContain('> Author: Joe Simpson')
             ->assertSuccessful();

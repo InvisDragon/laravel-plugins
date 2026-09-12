@@ -42,5 +42,4 @@ class PluginController
             return response(['message' => 'Invalid Request'], 400);
         }
     }
-
 }
