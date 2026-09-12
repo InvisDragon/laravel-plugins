@@ -52,9 +52,7 @@ class LaravelPluginsServiceProvider extends PackageServiceProvider
 
         // Blade
         Blade::directive( 'hook', function($hookName) {
-            ob_start();
-            Hook::call( $hookName );
-            return ob_get_clean();
+            return '<?php \InvisibleDragon\LaravelPlugins\Hooks\Hook::call( ' . json_encode($hookName) . ' ) ?>';
         } );
 
     }
