@@ -145,16 +145,18 @@ class LaravelPlugins
         }
     }
 
-    public static function resource(string $pluginKey, string $resource) {
-        return config('plugins.public_path') . '/' . $pluginKey . '/' . $resource;
+    public static function resource(string $pluginKey, string $resource)
+    {
+        return config('plugins.public_path').'/'.$pluginKey.'/'.$resource;
     }
 
-    public static function css(string $pluginKey, string $resource) {
-        echo '<link rel="stylesheet" type="text/css" href="' . e( static::resource( $pluginKey, $resource ) ) . '" />';
+    public static function css(string $pluginKey, string $resource)
+    {
+        echo '<link rel="stylesheet" type="text/css" href="'.e(static::resource($pluginKey, $resource)).'" />';
     }
 
-    public static function script(string $pluginKey, string $resource) {
-        echo '<script type="text/javascript" src="' . e( static::resource( $pluginKey, $resource ) ) . '"></script>';
+    public static function script(string $pluginKey, string $resource)
+    {
+        echo '<script type="text/javascript" src="'.e(static::resource($pluginKey, $resource)).'"></script>';
     }
-
 }

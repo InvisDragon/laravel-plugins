@@ -7,13 +7,12 @@ use InvisibleDragon\LaravelPlugins\LaravelPlugins;
 
 class BladeTest extends TestCase
 {
-
-    static $called = false;
+    public static $called = false;
 
     public function test_blade_hook()
     {
 
-        Hook::add('blade_test', function() {
+        Hook::add('blade_test', function () {
             echo 'ok!';
             static::$called = true;
         });
@@ -27,7 +26,7 @@ class BladeTest extends TestCase
     public function test_blade_resource()
     {
 
-        Hook::add('blade_resource', function() {
+        Hook::add('blade_resource', function () {
             LaravelPlugins::css('one', 'style.css');
             static::$called = true;
         });
@@ -37,5 +36,4 @@ class BladeTest extends TestCase
         $this->assertTrue(static::$called, 'Hook called');
 
     }
-
 }

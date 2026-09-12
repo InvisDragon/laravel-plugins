@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
 use InvisibleDragon\LaravelPlugins\Commands\PluginLinkAssetsCommand;
 use InvisibleDragon\LaravelPlugins\Commands\PluginListCommand;
-use InvisibleDragon\LaravelPlugins\Hooks\Hook;
 use InvisibleDragon\LaravelPlugins\Listeners\BootListener;
 use InvisibleDragon\LaravelPlugins\Listeners\TenantMigrated;
 use Spatie\LaravelPackageTools\Package;
@@ -51,9 +50,9 @@ class LaravelPluginsServiceProvider extends PackageServiceProvider
         }
 
         // Blade
-        Blade::directive( 'hook', function($hookName) {
-            return '<?php \InvisibleDragon\LaravelPlugins\Hooks\Hook::call( ' . json_encode($hookName) . ' ) ?>';
-        } );
+        Blade::directive('hook', function ($hookName) {
+            return '<?php \InvisibleDragon\LaravelPlugins\Hooks\Hook::call( '.json_encode($hookName).' ) ?>';
+        });
 
     }
 }
