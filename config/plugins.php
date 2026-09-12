@@ -8,5 +8,6 @@ return [
     ],
 
     'public_dir' => public_path('plugins'),
+    'public_path' => '/plugins',
 
 ];

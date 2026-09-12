@@ -2,9 +2,11 @@
 
 namespace InvisibleDragon\LaravelPlugins;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
 use InvisibleDragon\LaravelPlugins\Commands\PluginLinkAssetsCommand;
 use InvisibleDragon\LaravelPlugins\Commands\PluginListCommand;
+use InvisibleDragon\LaravelPlugins\Hooks\Hook;
 use InvisibleDragon\LaravelPlugins\Listeners\BootListener;
 use InvisibleDragon\LaravelPlugins\Listeners\TenantMigrated;
 use Spatie\LaravelPackageTools\Package;
@@ -47,5 +49,13 @@ class LaravelPluginsServiceProvider extends PackageServiceProvider
         } else {
             LaravelPlugins::bootPlugins();
         }
+
+        // Blade
+        Blade::directive( 'hook', function($hookName) {
+            ob_start();
+            Hook::call( $hookName );
+            return ob_get_clean();
+        } );
+
     }
 }

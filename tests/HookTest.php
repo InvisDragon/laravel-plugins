@@ -6,16 +6,19 @@ use InvisibleDragon\LaravelPlugins\Hooks\Hook;
 
 class HookTest extends TestCase
 {
+
+    static $called = false;
+
     public function test_basic_hooks()
     {
 
-        Hook::add('test', function (&$called) {
-            $called = true;
+        Hook::add('basic_test', function () {
+            static::$called = true;
         });
 
-        $called = false;
-        Hook::call('test', [&$called]);
-        $this->assertTrue($called, 'Hook called');
+        Hook::call('basic_test');
+        $this->assertTrue(static::$called, 'Hook called');
 
     }
+
 }
