@@ -25,6 +25,14 @@ class PluginDiscoveryTest extends TestCase
         ], LaravelPlugins::getAllPluginInformation());
     }
 
+    public function test_discover_plugins_cli()
+    {
+        $this->artisan('plugins:list', [ '--verbose' => true, ])
+            ->expectsOutputToContain('One')
+            ->expectsOutputToContain('> Author: Joe Simpson')
+            ->assertSuccessful();
+    }
+
     public function test_force_enable_plugins()
     {
 

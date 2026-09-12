@@ -3,6 +3,8 @@
 namespace InvisibleDragon\LaravelPlugins;
 
 use Illuminate\Support\Facades\Event;
+use InvisibleDragon\LaravelPlugins\Commands\PluginLinkAssetsCommand;
+use InvisibleDragon\LaravelPlugins\Commands\PluginListCommand;
 use InvisibleDragon\LaravelPlugins\Listeners\BootListener;
 use InvisibleDragon\LaravelPlugins\Listeners\TenantMigrated;
 use Spatie\LaravelPackageTools\Package;
@@ -21,6 +23,10 @@ class LaravelPluginsServiceProvider extends PackageServiceProvider
             ->name('laravel-plugins')
             ->hasConfigFile()
             ->hasViews()
+            ->hasCommands([
+                PluginListCommand::class,
+                PluginLinkAssetsCommand::class,
+            ])
             ->hasMigration('create_laravel_plugins_table');
     }
 

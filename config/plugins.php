@@ -7,4 +7,6 @@ return [
         dirname(__FILE__).'/../plugins/',
     ],
 
+    'public_dir' => public_path('plugins'),
+
 ];
