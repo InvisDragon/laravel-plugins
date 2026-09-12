@@ -9,7 +9,7 @@ class PluginDiscoveryTest extends TestCase
     public function test_get_dirs()
     {
         $this->assertEquals([
-            dirname(__FILE__).'/test_plugins/',
+            dirname(__FILE__).'/test_plugins',
         ], LaravelPlugins::getPluginDirectories());
     }
 
@@ -20,6 +20,7 @@ class PluginDiscoveryTest extends TestCase
                 'name' => 'One',
                 'author' => 'Joe Simpson',
                 'description' => 'This is a plugin',
+                'dir' => __DIR__ . '/test_plugins/one',
             ],
         ], LaravelPlugins::getAllPluginInformation());
     }
